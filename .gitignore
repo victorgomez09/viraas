@@ -1,0 +1,13 @@
+/bin
+/data
+/scratch
+node_modules
+dist
+!.github/actions/*/dist
+.temp
+.cache
+
+*.log
+TODO.md
+.env
+.env.*
