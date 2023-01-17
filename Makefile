@@ -50,7 +50,7 @@ run:
 		--build-arg BUILD_HASH="${BUILD_HASH}" \
 		--build-arg BUILD_DATE="${BUILD_DATE}" \
 		--build-arg BUILD_VAR_PATH="${BUILD_VAR_PATH}" \
-		--no-cache
+
 	@echo
 	@echo "Starting Viraas Server..."
 	@echo

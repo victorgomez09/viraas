@@ -1,7 +1,8 @@
-import { PieChartOutlined, DesktopOutlined, UserOutlined, TeamOutlined, FileOutlined } from "@ant-design/icons";
+import { PieChartOutlined, DesktopOutlined, UserOutlined, TeamOutlined, FileOutlined, ClusterOutlined } from "@ant-design/icons";
 import { Menu, theme } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { MenuItem } from "../types";
 import { getItem } from "../utils/antd.util";
 
@@ -14,7 +15,7 @@ export function Sidebar() {
   const items: MenuItem[] = [
     getItem('Applications', 'apps', <PieChartOutlined />),
     getItem('Plugins', 'plug', <DesktopOutlined />),
-    getItem('Nodes', 'nod', <TeamOutlined />),
+    getItem((<Link to="/nodes">Nodes</Link>), 'nod', <ClusterOutlined />),
     getItem('User', 'user', <UserOutlined />, [
       getItem('Tom', '3'),
       getItem('Bill', '4'),

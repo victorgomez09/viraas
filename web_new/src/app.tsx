@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AppContainer } from './components';
 import { PrivateRoute } from './router';
-import { Login } from './views'
+import { Login, Nodes } from './views'
 
 function App() {
   return (
@@ -9,7 +9,9 @@ function App() {
       <Route element={<PrivateRoute />}>
         <Route element={<AppContainer />}>
           <Route path="/" element={<Navigate to="/" replace />} />
-          <Route path="/apps" element={<Navigate to="/" replace />} />
+          <Route path="/apps" element={<div>Apps</div>} />
+          <Route path="/plugins" element={<div>Plugins</div>} />
+          <Route path="/nodes" element={<Nodes />} />
         </Route>
       </Route>
       <Route path='/login' element={<Login />} />

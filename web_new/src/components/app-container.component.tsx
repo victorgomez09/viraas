@@ -10,8 +10,8 @@ export function AppContainer() {
     <Layout style={{ minHeight: '100vh' }}>
       <Sidebar />
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }} />
-        <Content style={{ margin: '0 16px' }}>
+        {/* <Header style={{ padding: 0, background: colorBgContainer }} /> */}
+        <Content style={{ margin: '16px 16px' }}>
           <Outlet />
         </Content>
         <Footer style={{ textAlign: 'center' }}>Vira Paas ©2023 Created by Vira</Footer>
