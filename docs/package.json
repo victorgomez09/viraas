@@ -2,7 +2,7 @@
   "name": "docs",
   "private": true,
   "scripts": {
-    "dev": "cross-env DEV=true vuepress dev .",
+    "dev": "npx cross-env DEV=true vuepress dev .",
     "build": "vuepress build ."
   },
   "devDependencies": {
