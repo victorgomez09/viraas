@@ -1,4 +1,7 @@
-<img src="./.github/assets/readme_branding.png" alt="Viraas - The cloud for your closet" height="50%">
+## Viraas
+### A self-hosted, docker based, PaaS with cluster and ARM support.
+
+----
 
 <p align="center">
   <a href="https://github.com/victorgomez09/viraas/actions/workflows/validate.yml">
