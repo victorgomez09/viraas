@@ -13,9 +13,7 @@ export interface Health {
   };
 }
 
-export const useHealthQuery = (
-  options?: { health: Health }
-) => {
+export const useHealthQuery = () => {
   const HEALTH_QUERY = gql`
     query getHealth {
       health {
@@ -29,9 +27,9 @@ export const useHealthQuery = (
         }
       }
     }
-`
+  `;
 
   return useQuery<{ health: Health }, {}>("getHealth", () => {
-    return request(GRAPHQL_API_URL, HEALTH_QUERY)
+    return request(GRAPHQL_API_URL, HEALTH_QUERY);
   });
-}
+};
