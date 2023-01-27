@@ -53,7 +53,7 @@ export const useNodesQuery = () => {
     ${appFragment}
   `;
 
-  return useQuery<{ nodes: Node[] }>("nodesQuery", () => {
+  return useQuery<{ nodes: Node[] }, string>("nodesQuery", () => {
     return request(GRAPHQL_API_URL, NODES_QUERY);
   });
-}
+};

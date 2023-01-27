@@ -30,7 +30,9 @@ const urlLoader = (): Plugin => {
 export default defineConfig(({ mode }) => ({
   define: {
     __API_URL__:
-      mode === "development" ? `"https://victorgomez09-obscure-xylophone-7r4gvrj967vcr57g-3000.preview.app.github.dev/graphql"` : `"/graphql"`,
+      mode === "development"
+        ? `"https://3000-victorgomez09-viraas-hg9y4ihg0jj.ws-eu83.gitpod.io/graphql"`
+        : `"/graphql"`,
   },
   plugins: [
     urlLoader(),

@@ -7,6 +7,7 @@ const props = defineProps<{
 }>();
 const showHidden = computed(() => props.showHidden);
 const clusterIpAddress = location.hostname;
+console.log('clusterIpAddress', clusterIpAddress)
 
 const { result, loading, error } = useAppListQuery({
   showHidden,

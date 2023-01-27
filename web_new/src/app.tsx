@@ -3,6 +3,7 @@ import { AppContainer } from './components';
 import { PrivateRoute } from './router';
 import { Apps, Login, NodeDetails, Nodes } from './views'
 
+
 function App() {
   return (
     <Routes>
@@ -15,9 +16,9 @@ function App() {
           <Route path="/nodes/:id" element={<NodeDetails />} />
         </Route>
       </Route>
-      <Route path='/login' element={<Login />} />
+      <Route path="/login" element={<Login />} />
     </Routes>
-  )
+  );
 }
 
-export default App
+export default App;
