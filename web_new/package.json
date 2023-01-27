@@ -9,19 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@chakra-ui/icons": "^2.0.17",
     "@chakra-ui/react": "^2.4.9",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "axios": "^1.2.2",
     "framer-motion": "^8.5.3",
-=======
-    "@ant-design/icons": "^5.0.0",
-    "@monaco-editor/react": "^4.4.6",
-    "antd": "^5.1.5",
-    "axios": "^1.2.2",
->>>>>>> 2d5addc1ce14dfcb3a82dcdd45043d0ae852a2b5
     "graphql": "^16.6.0",
     "graphql-request": "^5.1.0",
     "prismjs": "^1.29.0",
