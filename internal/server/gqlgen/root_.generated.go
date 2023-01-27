@@ -146,6 +146,7 @@ type ComplexityRoot struct {
 	Query struct {
 		GetApp      func(childComplexity int, id string) int
 		GetAppTasks func(childComplexity int, id string) int
+		GetNode     func(childComplexity int, id string) int
 		GetPlugin   func(childComplexity int, name internal.PluginName) int
 		Health      func(childComplexity int) int
 		ListApps    func(childComplexity int, page *int, size *int, showHidden *bool) int
@@ -766,6 +767,18 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Query.GetAppTasks(childComplexity, args["id"].(string)), true
 
+	case "Query.getNode":
+		if e.complexity.Query.GetNode == nil {
+			break
+		}
+
+		args, err := ec.field_Query_getNode_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.GetNode(childComplexity, args["id"].(string)), true
+
 	case "Query.getPlugin":
 		if e.complexity.Query.GetPlugin == nil {
 			break
@@ -1267,6 +1280,8 @@ type Log {
 
   "List the nodes that are apart of the cluster"
   nodes: [Node!]!
+  "Grab a node by it's ID"
+  getNode(id: ID!): Node!
 }
 `, BuiltIn: false},
 	{Name: "../../../api/scalars.graphqls", Input: `"A JSON map of key-value pairs. Values can be any type."

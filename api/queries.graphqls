@@ -24,4 +24,6 @@ type Query {
 
   "List the nodes that are apart of the cluster"
   nodes: [Node!]!
+  "Grab a node by it's ID"
+  getNode(id: ID!): Node!
 }
