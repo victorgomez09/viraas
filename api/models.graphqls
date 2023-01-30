@@ -238,3 +238,7 @@ type Log {
   message: String!
   timestamp: Time!
 }
+
+type AppLogs {
+  logs: [Log]!
+}

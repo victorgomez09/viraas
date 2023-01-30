@@ -16,7 +16,7 @@ import (
 // region    ************************** generated!.gotpl **************************
 
 type SubscriptionResolver interface {
-	AppLogs(ctx context.Context, id string, excludeStdout *bool, excludeStderr *bool, initialCount *int) (<-chan *internal.Log, error)
+	AppLogs(ctx context.Context, id string, excludeStdout *bool, excludeStderr *bool, initialCount *int) (<-chan *internal.AppLogs, error)
 }
 
 // endregion ************************** generated!.gotpl **************************
@@ -101,7 +101,7 @@ func (ec *executionContext) _Subscription_appLogs(ctx context.Context, field gra
 	}
 	return func(ctx context.Context) graphql.Marshaler {
 		select {
-		case res, ok := <-resTmp.(<-chan *internal.Log):
+		case res, ok := <-resTmp.(<-chan *internal.AppLogs):
 			if !ok {
 				return nil
 			}
@@ -109,7 +109,7 @@ func (ec *executionContext) _Subscription_appLogs(ctx context.Context, field gra
 				w.Write([]byte{'{'})
 				graphql.MarshalString(field.Alias).MarshalGQL(w)
 				w.Write([]byte{':'})
-				ec.marshalNLog2ᚖgithubᚗcomᚋvictorgomez09ᚋviraasᚋinternalᚐLog(ctx, field.Selections, res).MarshalGQL(w)
+				ec.marshalNAppLogs2ᚖgithubᚗcomᚋvictorgomez09ᚋviraasᚋinternalᚐAppLogs(ctx, field.Selections, res).MarshalGQL(w)
 				w.Write([]byte{'}'})
 			})
 		case <-ctx.Done():
@@ -126,12 +126,10 @@ func (ec *executionContext) fieldContext_Subscription_appLogs(ctx context.Contex
 		IsResolver: true,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			switch field.Name {
-			case "message":
-				return ec.fieldContext_Log_message(ctx, field)
-			case "timestamp":
-				return ec.fieldContext_Log_timestamp(ctx, field)
+			case "logs":
+				return ec.fieldContext_AppLogs_logs(ctx, field)
 			}
-			return nil, fmt.Errorf("no field named %q was found under type Log", field.Name)
+			return nil, fmt.Errorf("no field named %q was found under type AppLogs", field.Name)
 		},
 	}
 	defer func() {

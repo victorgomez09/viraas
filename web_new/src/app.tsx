@@ -1,8 +1,8 @@
-import { Navigate, Route, Routes } from 'react-router-dom';
-import { AppContainer } from './components';
-import { PrivateRoute } from './router';
-import { Apps, Login, NewApp, NodeDetails, Nodes } from './views'
-
+import { Navigate, Route, Routes } from "react-router-dom";
+import { AppContainer } from "./components";
+import { PrivateRoute } from "./router";
+import { AppDetails, Apps, Login, NewApp, NodeDetails, Nodes } from "./views";
+import { Pruebas } from "./views/pruebas.view";
 
 function App() {
   return (
@@ -11,12 +11,14 @@ function App() {
         <Route element={<AppContainer />}>
           <Route path="/" element={<Navigate to="/apps" replace />} />
           <Route path="/apps" element={<Apps />} />
+          <Route path="/apps/:id" element={<AppDetails />} />
           <Route path="/apps/new" element={<NewApp />} />
           <Route path="/plugins" element={<div>Plugins</div>} />
           <Route path="/nodes" element={<Nodes />} />
           <Route path="/nodes/:id" element={<NodeDetails />} />
         </Route>
       </Route>
+      <Route path="/pruebas" element={<Pruebas />} />
       <Route path="/login" element={<Login />} />
     </Routes>
   );

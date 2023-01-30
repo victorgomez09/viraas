@@ -73,6 +73,10 @@ type ComplexityRoot struct {
 		Total   func(childComplexity int) int
 	}
 
+	AppLogs struct {
+		Logs func(childComplexity int) int
+	}
+
 	AppTask struct {
 		App          func(childComplexity int) int
 		AppID        func(childComplexity int) int
@@ -355,6 +359,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.AppInstances.Total(childComplexity), true
+
+	case "AppLogs.logs":
+		if e.complexity.AppLogs.Logs == nil {
+			break
+		}
+
+		return e.complexity.AppLogs.Logs(childComplexity), true
 
 	case "AppTask.app":
 		if e.complexity.AppTask.App == nil {
@@ -1206,6 +1217,10 @@ type Log {
   message: String!
   timestamp: Time!
 }
+
+type AppLogs {
+  logs: [Log]!
+}
 `, BuiltIn: false},
 	{Name: "../../../api/mutations.graphqls", Input: `type Mutation {
   "Create and start a new app."
@@ -1299,7 +1314,7 @@ scalar Time
     excludeStderr: Boolean = false
     "The subscription will load this number of logs from the past initially before listening for future logs."
     initialCount: Int = 50
-  ): Log!
+  ): AppLogs!
 }
 `, BuiltIn: false},
 }

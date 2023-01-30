@@ -1144,6 +1144,56 @@ func (ec *executionContext) fieldContext_AppInstances_total(ctx context.Context,
 	return fc, nil
 }
 
+func (ec *executionContext) _AppLogs_logs(ctx context.Context, field graphql.CollectedField, obj *internal.AppLogs) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_AppLogs_logs(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Logs, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]*internal.Log)
+	fc.Result = res
+	return ec.marshalNLog2ᚕᚖgithubᚗcomᚋvictorgomez09ᚋviraasᚋinternalᚐLog(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_AppLogs_logs(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "AppLogs",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			switch field.Name {
+			case "message":
+				return ec.fieldContext_Log_message(ctx, field)
+			case "timestamp":
+				return ec.fieldContext_Log_timestamp(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type Log", field.Name)
+		},
+	}
+	return fc, nil
+}
+
 func (ec *executionContext) _AppTask_message(ctx context.Context, field graphql.CollectedField, obj *internal.AppTask) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_AppTask_message(ctx, field)
 	if err != nil {
@@ -3474,6 +3524,34 @@ func (ec *executionContext) _AppInstances(ctx context.Context, sel ast.Selection
 	return out
 }
 
+var appLogsImplementors = []string{"AppLogs"}
+
+func (ec *executionContext) _AppLogs(ctx context.Context, sel ast.SelectionSet, obj *internal.AppLogs) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, appLogsImplementors)
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("AppLogs")
+		case "logs":
+
+			out.Values[i] = ec._AppLogs_logs(ctx, field, obj)
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
 var appTaskImplementors = []string{"AppTask"}
 
 func (ec *executionContext) _AppTask(ctx context.Context, sel ast.SelectionSet, obj *internal.AppTask) graphql.Marshaler {
@@ -4051,6 +4129,20 @@ func (ec *executionContext) marshalNAppInstances2ᚖgithubᚗcomᚋvictorgomez09
 	return ec._AppInstances(ctx, sel, v)
 }
 
+func (ec *executionContext) marshalNAppLogs2githubᚗcomᚋvictorgomez09ᚋviraasᚋinternalᚐAppLogs(ctx context.Context, sel ast.SelectionSet, v internal.AppLogs) graphql.Marshaler {
+	return ec._AppLogs(ctx, sel, &v)
+}
+
+func (ec *executionContext) marshalNAppLogs2ᚖgithubᚗcomᚋvictorgomez09ᚋviraasᚋinternalᚐAppLogs(ctx context.Context, sel ast.SelectionSet, v *internal.AppLogs) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
+		}
+		return graphql.Null
+	}
+	return ec._AppLogs(ctx, sel, v)
+}
+
 func (ec *executionContext) marshalNAppTask2ᚕᚖgithubᚗcomᚋvictorgomez09ᚋviraasᚋinternalᚐAppTaskᚄ(ctx context.Context, sel ast.SelectionSet, v []*internal.AppTask) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
@@ -4120,18 +4212,42 @@ func (ec *executionContext) unmarshalNBoundVolumeInput2ᚖgithubᚗcomᚋvictorg
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNLog2githubᚗcomᚋvictorgomez09ᚋviraasᚋinternalᚐLog(ctx context.Context, sel ast.SelectionSet, v internal.Log) graphql.Marshaler {
-	return ec._Log(ctx, sel, &v)
-}
-
-func (ec *executionContext) marshalNLog2ᚖgithubᚗcomᚋvictorgomez09ᚋviraasᚋinternalᚐLog(ctx context.Context, sel ast.SelectionSet, v *internal.Log) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
-		}
-		return graphql.Null
+func (ec *executionContext) marshalNLog2ᚕᚖgithubᚗcomᚋvictorgomez09ᚋviraasᚋinternalᚐLog(ctx context.Context, sel ast.SelectionSet, v []*internal.Log) graphql.Marshaler {
+	ret := make(graphql.Array, len(v))
+	var wg sync.WaitGroup
+	isLen1 := len(v) == 1
+	if !isLen1 {
+		wg.Add(len(v))
 	}
-	return ec._Log(ctx, sel, v)
+	for i := range v {
+		i := i
+		fc := &graphql.FieldContext{
+			Index:  &i,
+			Result: &v[i],
+		}
+		ctx := graphql.WithFieldContext(ctx, fc)
+		f := func(i int) {
+			defer func() {
+				if r := recover(); r != nil {
+					ec.Error(ctx, ec.Recover(ctx, r))
+					ret = nil
+				}
+			}()
+			if !isLen1 {
+				defer wg.Done()
+			}
+			ret[i] = ec.marshalOLog2ᚖgithubᚗcomᚋvictorgomez09ᚋviraasᚋinternalᚐLog(ctx, sel, v[i])
+		}
+		if isLen1 {
+			f(i)
+		} else {
+			go f(i)
+		}
+
+	}
+	wg.Wait()
+
+	return ret
 }
 
 func (ec *executionContext) marshalNNode2githubᚗcomᚋvictorgomez09ᚋviraasᚋinternalᚐNode(ctx context.Context, sel ast.SelectionSet, v internal.Node) graphql.Marshaler {
@@ -4349,6 +4465,13 @@ func (ec *executionContext) marshalOHealth2ᚖgithubᚗcomᚋvictorgomez09ᚋvir
 		return graphql.Null
 	}
 	return ec._Health(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalOLog2ᚖgithubᚗcomᚋvictorgomez09ᚋviraasᚋinternalᚐLog(ctx context.Context, sel ast.SelectionSet, v *internal.Log) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._Log(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalORoute2ᚖgithubᚗcomᚋvictorgomez09ᚋviraasᚋinternalᚐRoute(ctx context.Context, sel ast.SelectionSet, v *internal.Route) graphql.Marshaler {

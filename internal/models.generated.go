@@ -94,6 +94,10 @@ type AppInstances struct {
 	Total   int `json:"total"`
 }
 
+type AppLogs struct {
+	Logs []*Log `json:"logs"`
+}
+
 // Tasks define the desired state of on app. If you're familiar with docker, this returns the result of `docker service ps`
 type AppTask struct {
 	Message      string    `json:"message"`

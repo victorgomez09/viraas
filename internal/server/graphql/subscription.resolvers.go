@@ -16,7 +16,7 @@ import (
 )
 
 // AppLogs is the resolver for the appLogs field.
-func (r *subscriptionResolver) AppLogs(ctx context.Context, id string, excludeStdout *bool, excludeStderr *bool, initialCount *int) (<-chan *internal.Log, error) {
+func (r *subscriptionResolver) AppLogs(ctx context.Context, id string, excludeStdout *bool, excludeStderr *bool, initialCount *int) (<-chan *internal.AppLogs, error) {
 	service, err := r.RuntimeServiceRepo.GetOne(ctx, server.RuntimeServicesFilter{
 		AppID: &id,
 	})
@@ -38,13 +38,15 @@ func (r *subscriptionResolver) AppLogs(ctx context.Context, id string, excludeSt
 		return nil, err
 	}
 
-	logs := make(chan *internal.Log, 1)
+	logs := make(chan *internal.AppLogs, 1)
 	r.runSubscriptionJob(ctx, func(done func() bool) {
+		logsArray := []*internal.Log{}
 		defer stream.Close()
 		for !done() {
 			log, _, err := stream.NextLog()
 			if err == nil {
-				logs <- &log
+				logsArray = append(logsArray, &log)
+				logs <- &internal.AppLogs{Logs: logsArray}
 			} else if !errors.Is(err, context.Canceled) {
 				r.Logger.E("%v", err)
 			}

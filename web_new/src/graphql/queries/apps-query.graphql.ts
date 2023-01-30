@@ -12,6 +12,10 @@ export interface App {
   group?: string;
   status: RuntimeStatus;
   simpleRoute?: string;
+  targetPorts?: number[];
+  publishedPorts?: number[];
+  volume: string;
+  env: string;
   instances?: {
     running: number;
     total: number;
