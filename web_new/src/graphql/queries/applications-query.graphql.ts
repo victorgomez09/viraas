@@ -1,6 +1,6 @@
 import request, { gql } from "graphql-request";
 import { useQuery } from "react-query";
-import { GRAPHQL_API_URL } from "../../config/api.config";
+import { GRAPHQL_API_URL } from "../../config";
 
 export type RuntimeStatus = "RUNNING" | "STOPPED";
 

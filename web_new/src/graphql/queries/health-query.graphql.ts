@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { request, gql } from "graphql-request";
-import { GRAPHQL_API_URL } from "../config/api.config";
+import { GRAPHQL_API_URL } from "../../config";
 
 export interface Health {
   version: string;

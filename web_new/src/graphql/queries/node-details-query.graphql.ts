@@ -1,6 +1,6 @@
 import request, { gql } from "graphql-request";
 import { useQuery } from "react-query";
-import { GRAPHQL_API_URL } from "../config/api.config";
+import { GRAPHQL_API_URL } from "../../config";
 
 const appFragment = gql`
   fragment AppListApp on App {
@@ -21,9 +21,9 @@ interface NodeService {
   status: string;
   image: string;
   instances: {
-    running: number
-    total: number
-  }
+    running: number;
+    total: number;
+  };
 }
 
 interface Node {
@@ -61,4 +61,4 @@ export const useNodeDetailsQuery = (id: string) => {
   return useQuery<{ node: Node }>("nodeDetailsQuery", () => {
     return request(GRAPHQL_API_URL, NODE_DETAILS_QUERY, { id: id });
   });
-}
+};

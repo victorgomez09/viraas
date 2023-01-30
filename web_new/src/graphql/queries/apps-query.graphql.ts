@@ -1,7 +1,7 @@
 import request, { gql } from "graphql-request";
 import { useQuery } from "react-query";
 
-import { GRAPHQL_API_URL } from "../config/api.config";
+import { GRAPHQL_API_URL } from "../../config";
 import { appFragment } from "./nodes-query.graphql";
 
 export type RuntimeStatus = "RUNNING" | "STOPPED";
@@ -36,6 +36,9 @@ export function useAppsQuery({ showHidden, clusterIpAddress }: ListAppArgs) {
   `;
 
   return useQuery<{ apps: App[] }>("appsQuery", () => {
-    return request(GRAPHQL_API_URL, APPS_QUERY, { showHidden, clusterIpAddress });
+    return request(GRAPHQL_API_URL, APPS_QUERY, {
+      showHidden,
+      clusterIpAddress,
+    });
   });
 }

@@ -1,6 +1,6 @@
 import request, { gql } from "graphql-request";
 import { useMutation } from "react-query";
-import { GRAPHQL_API_URL } from "../config/api.config";
+import { GRAPHQL_API_URL } from "../../config";
 import { App, appFragment } from "./applications-query.graphql";
 
 export interface AppInput {

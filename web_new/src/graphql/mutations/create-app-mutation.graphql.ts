@@ -12,7 +12,7 @@ export interface AppInput {
   hidden?: boolean;
 }
 
-export function useCreateAppMutation(app: AppInput) {
+export function useCreateAppMutation() {
   const CREATE_APP_MUTATION = gql`
     mutation createApp($app: AppInput!) {
       app: createApp(input: $app) {
@@ -22,9 +22,7 @@ export function useCreateAppMutation(app: AppInput) {
     ${appFragment}
   `;
 
-  return useMutation<{ app: App }, {}, { app: AppInput }>(
-    () => {
-      return request(GRAPHQL_API_URL, CREATE_APP_MUTATION, app);
-    }
-  );
+  return useMutation<{ app: App }, {}, { app: AppInput }>((app) => {
+    return request(GRAPHQL_API_URL, CREATE_APP_MUTATION, app);
+  });
 }

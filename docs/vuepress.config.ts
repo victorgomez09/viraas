@@ -111,7 +111,6 @@ export default defineUserConfig({
     }),
   ],
   head: [
-    ["link", { rel: "icon", href: "/favicon.svg" }],
     [
       "script",
       {
@@ -122,7 +121,6 @@ export default defineUserConfig({
     ],
   ],
   theme: defaultTheme({
-    logo: "/nav-branding.svg",
     docsRepo: "https://github.com/victorgomez09/viraas",
     docsDir: "docs",
     editLink: true,
