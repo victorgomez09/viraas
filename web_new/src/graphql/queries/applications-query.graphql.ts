@@ -1,6 +1,6 @@
 import request, { gql } from "graphql-request";
 import { useQuery } from "react-query";
-import { GRAPHQL_API_URL } from "../config/api.config";
+import { GRAPHQL_API_URL } from "../../config/api.config";
 
 export type RuntimeStatus = "RUNNING" | "STOPPED";
 
@@ -47,7 +47,7 @@ export function useAppListQuery(args: ListAppArgs) {
     ${appFragment}
   `;
 
-  return useQuery<{ apps: App[] }, ListAppArgs>(
+  return useQuery<{ apps: App[] }, {}, ListAppArgs>(
     "listApps",
     () => {
       return request(GRAPHQL_API_URL, APPS_QUERY, args);

@@ -4,9 +4,9 @@ import { Navbar } from ".";
 
 export function AppContainer() {
   return (
-    <Flex direction="column">
+    <Flex width={"100%"} height={"100vh"} direction="column">
       <Navbar />
-      <Box p={4}>
+      <Box flex={1} p={4}>
         <Outlet />
       </Box>
     </Flex>
