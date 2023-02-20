@@ -63,6 +63,8 @@ export function AppDetails() {
 
   if (logsData) console.log("logsData", logsData.logs.logs);
 
+  console.log("data", data);
+
   return (
     <Tabs
       display={"grid"}

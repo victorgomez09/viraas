@@ -2,7 +2,6 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { AppContainer } from "./components";
 import { PrivateRoute } from "./router";
 import { AppDetails, Apps, Login, NewApp, NodeDetails, Nodes } from "./views";
-import { Pruebas } from "./views/pruebas.view";
 
 function App() {
   return (
@@ -18,7 +17,6 @@ function App() {
           <Route path="/nodes/:id" element={<NodeDetails />} />
         </Route>
       </Route>
-      <Route path="/pruebas" element={<Pruebas />} />
       <Route path="/login" element={<Login />} />
     </Routes>
   );

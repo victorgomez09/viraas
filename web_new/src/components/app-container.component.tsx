@@ -1,14 +1,15 @@
-import { Box, Flex } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
 import { Navbar } from ".";
 
 export function AppContainer() {
   return (
-    <Flex width={"100%"} height={"100vh"} direction="column">
+    <div className="flex flex-col flex-1">
       <Navbar />
-      <Box flex={1} p={4}>
-        <Outlet />
-      </Box>
-    </Flex>
-  )
+      {/* <div className="flex flex-1 p-2"> */}
+      {/* <div className="p-2"> */}
+      <Outlet />
+      {/* </div> */}
+      {/* </div> */}
+    </div>
+  );
 }

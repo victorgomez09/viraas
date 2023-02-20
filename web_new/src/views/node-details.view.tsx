@@ -1,4 +1,3 @@
-import { Box, Flex, Heading, List, ListItem, SimpleGrid, Stack, StackDivider, useColorModeValue, Text, VStack, Badge, Table, TableCaption, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
 import { Loading } from "../components";
@@ -8,132 +7,80 @@ export function NodeDetails() {
   const { id } = useParams();
   const { data, isLoading, isError } = useNodeDetailsQuery(id || "");
 
-  if (isLoading) return <Loading />
+  if (isLoading) return <Loading />;
+  if (isError)
+    return (
+      <div className="alert alert-error shadow-lg">
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="stroke-current flex-shrink-0 h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+            />
+          </svg>
+          <span>Error: Something goes wrong!</span>
+        </div>
+      </div>
+    );
 
   return (
-    <Flex direction="column">
-      <SimpleGrid
-        columns={{ base: 1, lg: 2 }}
-        spacing={{ base: 8, md: 10 }}
-        py={{ base: 18 }}>
-        <Stack spacing={{ base: 6, md: 10 }}>
-          <Box as={'header'}>
-            <Heading
-              lineHeight={1.1}
-              fontWeight={600}
-              fontSize={{ base: '2xl', sm: '4xl', lg: '5xl' }}>
-              {data?.node.hostname}
-            </Heading>
-            <Text
-              color={useColorModeValue('gray.900', 'gray.400')}
-              fontWeight={300}
-              fontSize={'2xl'}>
-              {data?.node.id}
-            </Text>
-          </Box>
-
-          <Stack
-            spacing={{ base: 4, sm: 6 }}
-            direction={'column'}
-            divider={
-              <StackDivider
-                borderColor={useColorModeValue('gray.200', 'gray.600')}
-              />
-            }>
-
-            <Box>
-              <Text
-                fontSize={{ base: '16px', lg: '18px' }}
-                color={useColorModeValue('yellow.500', 'yellow.300')}
-                fontWeight={'500'}
-                textTransform={'uppercase'}
-                mb={'4'}>
-                Details
-              </Text>
-
-              <List spacing={2}>
-                <ListItem>
-                  <Text as={'span'} fontWeight={'bold'}>
-                    ID:
-                  </Text>{' '}
-                  {data?.node.id}
-                </ListItem>
-                <ListItem>
-                  <Text as={'span'} fontWeight={'bold'}>
-                    IP:
-                  </Text>{' '}
-                  {data?.node.ip}
-                </ListItem>
-                <ListItem>
-                  <Text as={'span'} fontWeight={'bold'}>
-                    Operative System:
-                  </Text>{' '}
-                  {data?.node.os.toUpperCase()}
-                </ListItem>
-                <ListItem>
-                  <Text as={'span'} fontWeight={'bold'}>
-                    Architecture:
-                  </Text>{' '}
-                  {data?.node.architecture}
-                </ListItem>
-                <ListItem>
-                  <Text as={'span'} fontWeight={'bold'}>
-                    Status:
-                  </Text>{' '}
-                  <Badge colorScheme={`${data?.node.status === 'ready' ? 'green' : 'red'}`}>{data?.node.status.toUpperCase()}</Badge>
-                </ListItem>
-                <ListItem>
-                  <Text as={'span'} fontWeight={'bold'}>
-                    Labels:
-                  </Text>{' '}
-                  {Object.entries(data?.node.labels || {}).length ? Object.entries(data?.node.labels!).map(([key, value]) => {
-                    if (value) return `${key}=${value}`;
-                    return key;
-                  }) : <Text
-                    as={'span'}
-                    color={useColorModeValue('gray.500', 'gray.400')}
-                  >
-                    This node don't have labels
-                  </Text>}
-                </ListItem>
-
-                <ListItem>
-                  <Text as={'span'} fontWeight={'bold'}>
-                    Applications:
-                  </Text>{' '}
-                  {data?.node.services.length ? <TableContainer>
-                    <Table variant='simple'>
-                      <Thead>
-                        <Tr>
-                          <Th>Name</Th>
-                          <Th>Docker image</Th>
-                          <Th>status</Th>
-                        </Tr>
-                      </Thead>
-                      <Tbody>
-                        {data?.node.services.map((service, index) => {
-                          return (
-                            <Tr key={index}>
-                              <Th>{service.name}</Th>
-                              <Th>{service.image}</Th>
-                              <Th><Badge colorScheme={`${service.status.toLowerCase() === 'running' ? 'green' : 'red'}`}>{service.status.toUpperCase()}</Badge></Th>
-                            </Tr>
-                          )
-                        })}
-                      </Tbody>
-                    </Table>
-                  </TableContainer> : <Text
-                    as={'span'}
-                    color={useColorModeValue('gray.500', 'gray.400')}
-                  >
-                    This node don't have applications running
-                  </Text>}
-                </ListItem>
-              </List>
-            </Box>
-          </Stack>
-        </Stack>
-      </SimpleGrid>
-    </Flex>
-  )
+    <div className="card bg-base-200 shadow-md m-4">
+      <div className="card-body">
+        <h2 className="card-title justify-center mb-4">
+          {data?.node.hostname}
+        </h2>
+        <div className="flex flex-col w-full lg:flex-row">
+          <div className="grid flex-grow h-32 rounded-box place-items-center">
+            <div className="flex justify-between w-full">
+              <span className="font-bold">IP</span>
+              <span className="italic">{data?.node.ip}</span>
+            </div>
+            <div className="flex justify-between w-full">
+              <span className="font-bold">Operative system</span>
+              <span className="italic">{data?.node.os}</span>
+            </div>
+            <div className="flex justify-between w-full">
+              <span className="font-bold">Architecture</span>
+              <span className="italic">{data?.node.architecture}</span>
+            </div>
+          </div>
+          <div className="divider lg:divider-horizontal" />
+          <div className="grid flex-grow h-32 card rounded-box place-items-center">
+            <div className="flex justify-between w-full">
+              <span className="font-bold">Status</span>
+              <div
+                className={`badge gap-2 ${
+                  data?.node.status.toUpperCase() === "READY"
+                    ? "badge-success"
+                    : "badge-error"
+                }`}
+              >
+                {data?.node.status.toUpperCase()}
+              </div>
+            </div>
+            <div className="flex justify-between w-full">
+              <span className="font-bold">Applications</span>
+              {!data?.node.services.length && (
+                <span className="italic">No apps running</span>
+              )}
+              {data?.node.services.length! > 0 && (
+                <div>
+                  {data?.node.services.map((app, index) => {
+                    return <div key={index}>{app.name}</div>;
+                  })}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }

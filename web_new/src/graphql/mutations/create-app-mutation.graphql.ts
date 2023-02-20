@@ -3,7 +3,7 @@ import { useMutation } from "react-query";
 import { App, appFragment } from "..";
 import { GRAPHQL_API_URL } from "../../config/api.config";
 
-export interface AppInput {
+export interface AppInputGraphql {
   name: string;
   image: string;
   targetPorts?: number[];
@@ -22,7 +22,7 @@ export function useCreateAppMutation() {
     ${appFragment}
   `;
 
-  return useMutation<{ app: App }, {}, { app: AppInput }>((app) => {
+  return useMutation<{ app: App }, {}, { app: AppInputGraphql }>((app) => {
     return request(GRAPHQL_API_URL, CREATE_APP_MUTATION, app);
   });
 }
